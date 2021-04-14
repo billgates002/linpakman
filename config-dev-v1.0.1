@@ -1,0 +1,73 @@
+#!/bin/bash
+codename=$( cat /etc/os-release | grep VERSION_CODENAME | cut -d = -f 2 )
+if [ "$codename" != "\"kali-rolling\"" ]
+then
+    echo This script is only for kALI Linux
+    exit 1
+fi
+if [ "$UID" != "0" ]
+then
+    echo -e "This Script must be run with root privileges;"
+    exit 1
+fi
+rm /etc/apt/sources.list
+echo Modifying software repositories...
+echo "#Kali frontend repositories" >> /etc/apt/sources.list
+echo "deb http://kali.download/kali/ kali-rolling main non-free contrib" >> /etc/apt/sources.list
+echo "deb http://ftp.debian.org/debian stable main contrib non-free" >> /etc/apt/sources.list
+echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
+echo "deb http://http.kali.org/kali kali-last-snapshot main non-free contrib" >> /etc/apt/sources.list
+echo "deb http://http.kali.org/kali kali-experimental main non-free contrib" >> /etc/apt/sources.list
+echo "deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
+echo 
+echo Done.
+echo 
+echo Refreshing software repositories...
+apt update
+echo 
+echo Downloading necessary packages...
+apt -y install gnome-software alacarte figlet wget
+echo 
+echo Done
+echo 
+echo Creating application menu shotcut....
+echo "[Desktop Entry]" >> /usr/share/applications/pkg.updater.desktop
+echo "Name=App Store" >> /usr/share/applications/pkg.updater.desktop
+echo "Exec=gnome-software" >> /usr/share/applications/pkg.updater.desktop
+echo "Comment=Broowse/install/update/remove software" >> /usr/share/applications/pkg.updater.desktop
+echo "Terminal=false" >> /usr/share/applications/pkg.updater.desktop
+echo "Icon=gnome-software" >> /usr/share/applications/pkg.updater.desktop
+echo "Type=Application" >> /usr/share/applications/pkg.updater.desktop
+echo 
+echo Done
+echo 
+echo Do you want to install the updater?[Y/n]
+read ans
+if [ "$ans" == "n" ] || [ "$ans" == "N" ]; then
+    exit 1
+else
+    if [ -e updater-v1.0.9 ]
+    then
+        ./updater-v1.0.9
+    else
+        File not found. Do you want to download it?(Y/n)
+        read reply
+        if [ "$reply" == "n" ] || [ "$reply" == "N" ]
+        then
+            exit 1
+        else
+            curl https://raw.githubusercontent.com/preetam221/kali-linux-frontend-package-managemaent/main/updater-v1.0.9 >> updater-v1.0.9 && chmod +x updater-v1.0.9 && ./updater-v1.0.9 && rm updater-v1.0.9
+        fi
+    fi
+fi
+echo Running further configurations...
+echo Enter your name:
+read name
+echo "figlet $name" >> ~/.bashrc
+echo "figlet $name" >> ~/.zshrc
+echo 
+echo Process complited successfully.
+echo 
+echo Special thanks to...
+figlet Preetam Paul
+echo Exiting...
