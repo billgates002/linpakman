@@ -37,6 +37,7 @@ then
     echo "echo " >> /bin/pkg-updater
     echo "echo Prosess complited successfully. No error ocurred." >> /bin/pkg-updater
     echo "echo Exiting." >> /bin/pkg-updater
+    echo "exit" >> /bin/pkg-updater
     chmod +x /bin/pkg-updater
 else
     echo Creating Updater file......
@@ -61,6 +62,7 @@ else
     echo "echo " >> /bin/pkg-updater
     echo "echo Prosess complited successfully. No error ocurred." >> /bin/pkg-updater
     echo "echo Exiting." >> /bin/pkg-updater
+    echo "exit" >> /bin/pkg-updater
     chmod +x /bin/pkg-updater
 fi
 echo 
@@ -88,4 +90,3 @@ fi
 echo 
 echo Prosess complited successfully.
 echo Exiting.
-exit
