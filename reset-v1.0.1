@@ -27,7 +27,7 @@ then
             exit 1
         else
             echo "
-            CEnter a number from the following...
+            Enter a number from the following...
             1. Gnome packagekit
             2. Synaptic"
             read num
@@ -39,11 +39,11 @@ then
             fi
             if [ "$num" == "1" ]
             then
-                apt install gnome-packagekit
+                apt -y install gnome-packagekit
             fi
             if [ "$num" == "2" ]
             then
-                apt install synaptic
+                apt -y install synaptic
             fi
         fi
         echo Process complited successfully.
@@ -56,10 +56,12 @@ then
     then
         echo Do you want to reset terminal?[Y/n]
         read ans3
-        if [ "$ans3" == "n" ] || [ "$ans" == "N" ]
+        if [ "$ans3" == "n" ] || [ "$ans3" == "N" ]
         then
             exit 1
         else
+            echo Enter your username\(E.g.:john\)
+            read user
             cp ~/.bashrc.bkup ~/.bashrc
             cp /home/$user/.bashrc.bkup /home/$user/.bashrc
             cp ~/.zshrc ~/.zshrc.bkup
