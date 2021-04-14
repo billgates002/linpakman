@@ -48,9 +48,10 @@ if [ "$ans" == "n" ] || [ "$ans" == "N" ]; then
 else
     if [ -e updater-v1.0.9 ]
     then
+        chmod +x updater-v1.0.9
         ./updater-v1.0.9
     else
-        File not found. Do you want to download it?(Y/n)
+        File not found. Do you want to download it?[Y/n]
         read reply
         if [ "$reply" == "n" ] || [ "$reply" == "N" ]
         then
