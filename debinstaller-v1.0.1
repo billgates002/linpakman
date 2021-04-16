@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ "$UID" != "0" ]
+then
+    echo -e "This Script must be run with root privileges;"
+    exit 1
+fi
+echo Drag and drop the .deb file here and press \'ENTER\':
+read input
+path=$( echo $input | tr -d \' )
+dpkg -i $path
