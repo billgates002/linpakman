@@ -7,8 +7,8 @@ then
 fi
 if [ "$UID" != "0" ]
 then
-    echo -e "This Script must be run with root privileges; Enter your password to continue or press 'Ctrl' + 'C' to exit;"
-    sudo ./config-v1.0.5
+    echo -e "This Script must be run with root privileges;"
+    exit 1
 fi
 if [ -e /etc/apt/sources.list.bkup ]
 then
